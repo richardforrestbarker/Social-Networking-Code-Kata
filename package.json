@@ -1,0 +1,14 @@
+{
+  "name": "kata",
+  "version": "1.0.0",
+  "description": "code kata",
+  "main": "",
+  "scripts": {
+    "test": "jest test"
+  },
+  "author": "Richard Forrest Barker",
+  "license": "None",
+  "dependencies": {
+    "jest": "^27.4.4"
+  }
+}
