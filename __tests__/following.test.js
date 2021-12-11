@@ -1,5 +1,5 @@
-const User = require("../User");
-const Post = require("../Post");
+const User = require("../src/User");
+const Post = require("../src/Post");
 
 //Feature
 describe("Following", () => {

@@ -1,5 +1,5 @@
-const Post = require('../Post');
-const User = require('../User');
+const Post = require('../src/Post');
+const User = require('../src/User');
 
 //Feature
 describe("Timeline", () => {
