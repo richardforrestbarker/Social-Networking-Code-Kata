@@ -7,9 +7,9 @@ module.exports = class User {
     following = [];
     followers = [];
 
-    pubilsh = (message) => {
-        const Post = require('./Post');
-        this.timeline.push(new Post(message, this));
+    publish = (post) => {
+        this.timeline.push(post);
+        this.timeline.sort(this.sortByTimestamp)
     }
 
     follow = (user) => {
@@ -23,14 +23,20 @@ module.exports = class User {
     });
 
     wall = () => {
-        const postsofFollowedUsers = this.following.flatMap(followed =>{
-            return this.viewTimeline(followed).map(entry => `${followed.name} - ${entry}`)
+        const postsOfFollowedUsers = [
+            ...this.following.flatMap(followed => followed.timeline),
+            ...this.timeline
+        ]
+        postsOfFollowedUsers.sort(this.sortByTimestamp)
+        return postsOfFollowedUsers.map(post => {
+            return `${post.user.name} - ${post.message} (${this.minutesSinceTimeStamp(post.timestamp)} minute ago)`
         });
-        return [...this.viewTimeline(this).map(entry => `${this.name} - ${entry}`), ...(postsofFollowedUsers)];
     };
 
+    sortByTimestamp = (current, next) => current.timestamp - next.timestamp
+
     minutesSinceTimeStamp = (timestamp) => {
-        var diffMs = (timestamp - Date.now());
+        var diffMs = (Date.now() - timestamp);
         return Math.round(((diffMs % 86400000) % 3600000) / 60000);
     }
 }
